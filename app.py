@@ -92,6 +92,7 @@ class DevasterClient:
         self.pairing_done = threading.Event()
         self.pairing_response: Dict[str, Any] = {}
         self.client = mqtt.Client(client_id=f"devaster-client-{self.device_id}")
+        self.client.reconnect_delay_set(min_delay=1, max_delay=30)
         if self.use_tls:
             self.client.tls_set()
         self.client.on_connect = self.on_connect
@@ -208,7 +209,13 @@ class DevasterClient:
         self.client.subscribe(f"{self.namespace}/u/{self.user_id}/d/{self.device_id}/cmd")
 
     def run(self) -> None:
-        self.connect()
+        while True:
+            try:
+                self.connect()
+                break
+            except Exception as exc:
+                print(f"MQTT connect error: {exc}")
+                time.sleep(5)
         if not (self.user_id and self.device_key):
             code = input("Enter 6-digit pairing code from Telegram (/add_device): ").strip()
             self.pair(code)
