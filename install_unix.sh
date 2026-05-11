@@ -44,8 +44,19 @@ fi
 
 ${FETCH_CMD} "${DEVASTER_AGENT_URL}" > "${APP_DIR}/app.py"
 
-${PY_BIN} -m pip install --user --upgrade pip >/dev/null 2>&1
-${PY_BIN} -m pip install --user paho-mqtt psutil requests gputil python-dotenv >/dev/null 2>&1
+if ! ${PY_BIN} -m pip --version >/dev/null 2>&1; then
+  ${PY_BIN} -m ensurepip --upgrade >/dev/null 2>&1 || true
+fi
+if ! ${PY_BIN} -m pip --version >/dev/null 2>&1; then
+  echo "pip is not available for ${PY_BIN}. Please install python3-pip and retry."
+  exit 1
+fi
+if ! ${PY_BIN} -m pip install --user --upgrade pip >/dev/null 2>&1; then
+  ${PY_BIN} -m pip install --user --break-system-packages --upgrade pip >/dev/null
+fi
+if ! ${PY_BIN} -m pip install --user paho-mqtt psutil requests gputil python-dotenv >/dev/null 2>&1; then
+  ${PY_BIN} -m pip install --user --break-system-packages paho-mqtt psutil requests gputil python-dotenv >/dev/null
+fi
 
 cat > "${APP_DIR}/.env" <<EOF
 DEVASTER_MQTT_BROKER=${BROKER}
@@ -56,7 +67,11 @@ EOF
 
 echo "Starting first-run pairing..."
 echo "Please run '/add_device' in your Telegram bot to get a 6-digit pairing code."
-read -rp "Enter your 6-digit pairing code from Telegram: " PAIR_CODE
+if [[ -r /dev/tty ]]; then
+  read -rp "Enter your 6-digit pairing code from Telegram: " PAIR_CODE < /dev/tty
+else
+  read -rp "Enter your 6-digit pairing code from Telegram: " PAIR_CODE
+fi
 
 if [[ ! "${PAIR_CODE}" =~ ^[0-9]{6}$ ]]; then
   echo "Invalid pairing code format. Must be exactly 6 digits."
@@ -68,7 +83,11 @@ DEVASTER_PAIR_ONLY=1 printf "%s\n" "${PAIR_CODE}" | ${PY_BIN} "${APP_DIR}/app.py
 
 # Ask about persistence
 echo ""
-read -rp "Do you want Devaster to start automatically on boot/login? [y/N] " PERSISTENCE_CHOICE
+if [[ -r /dev/tty ]]; then
+  read -rp "Do you want Devaster to start automatically on boot/login? [y/N] " PERSISTENCE_CHOICE < /dev/tty
+else
+  read -rp "Do you want Devaster to start automatically on boot/login? [y/N] " PERSISTENCE_CHOICE
+fi
 PERSISTENCE_CHOICE="${PERSISTENCE_CHOICE:-N}"
 
 if [[ "${PERSISTENCE_CHOICE}" =~ ^[Yy]$ ]]; then
