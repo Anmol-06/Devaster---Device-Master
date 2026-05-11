@@ -69,6 +69,13 @@ If you used a standalone `.exe`, also delete the downloaded executable manually 
 
 ---
 
-## Optional server-side cleanup
+## Server-side unpair (recommended before reinstall)
 
-If you want to remove the device entry from your Telegram view too, remove it from the server database (`devices` table) for that user/device pair.
+If you plan to reinstall Devaster on the same machine, unpair the old device first in Telegram:
+
+```text
+/devices
+/unpair <device_id>
+```
+
+Then run `/add_device` to get a fresh pairing code and install again.

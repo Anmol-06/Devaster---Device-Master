@@ -10,6 +10,8 @@ curl -fsSL https://raw.githubusercontent.com/Anmol-06/Devaster---Device-Master/m
 ```
 
 > **Note:** During installation, you will be prompted to enter a 6-digit pairing code from Telegram and asked if you want the bot to run automatically in the background on startup.
+>
+> **Important (Reinstall):** If you are reinstalling Devaster on the same machine, run `/unpair <device_id>` in Telegram first, then install again using a fresh `/add_device` pairing code.
 
 ---
 

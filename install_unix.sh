@@ -67,6 +67,7 @@ EOF
 
 echo "Starting first-run pairing..."
 echo "Please run '/add_device' in your Telegram bot to get a 6-digit pairing code."
+echo "Reinstalling on the same machine? Run '/unpair <device_id>' in Telegram first."
 if [[ -r /dev/tty ]]; then
   read -rp "Enter your 6-digit pairing code from Telegram: " PAIR_CODE < /dev/tty
 else

@@ -39,6 +39,8 @@
 2. Send the `/add_device` command to generate your temporary 6-digit pairing code.
 3. Install the agent on your computer and enter the code when prompted. 
 
+> **Reinstall Tip:** Before reinstalling Devaster on the same machine, run `/unpair <device_id>` in Telegram and then use a fresh `/add_device` code.
+
 For full installation commands for Linux, macOS, and Windows, check out our **[Installation Guide](installation.md)**.
 
 ---
