@@ -79,7 +79,7 @@ if [[ ! "${PAIR_CODE}" =~ ^[0-9]{6}$ ]]; then
 fi
 
 echo "Pairing agent with your account..."
-DEVASTER_PAIR_ONLY=1 printf "%s\n" "${PAIR_CODE}" | ${PY_BIN} "${APP_DIR}/app.py"
+printf "%s\n" "${PAIR_CODE}" | DEVASTER_PAIR_ONLY=1 ${PY_BIN} "${APP_DIR}/app.py"
 
 # Ask about persistence
 echo ""
