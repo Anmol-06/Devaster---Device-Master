@@ -5,7 +5,6 @@ Follow the instructions below to install and run **Devaster - Device Master** ba
 ## 🐧 Linux & 🍏 macOS (Unix-based)
 
 You can install, pair, and launch the bot automatically using our quick-install script. Open your terminal and paste the following command:
-
 ```bash
 curl -fsSL [https://raw.githubusercontent.com/Anmol-06/Devaster---Device-Master/main/install_unix.sh](https://raw.githubusercontent.com/Anmol-06/Devaster---Device-Master/main/install_unix.sh) | bash
 ```
@@ -16,9 +15,18 @@ curl -fsSL [https://raw.githubusercontent.com/Anmol-06/Devaster---Device-Master/
 
 ## 🪟 Windows
 
-Since the automated script is built for Unix environments, Windows users can set up the bot manually using Git and Python. 
+You have two options for installing the bot on Windows: using the standalone executable (easiest) or running it manually from the source code.
 
-Open Command Prompt or PowerShell and execute these steps:
+### Option 1: Quick Install (Executable)
+The fastest way to get started on Windows is to use the pre-built `.exe` file.
+
+1. Download the provided `.exe` file directly from this repository.
+2. Double-click the downloaded file to run the application.
+
+> **Note:** Windows SmartScreen or your antivirus might flag the file since it is an unrecognized download from GitHub. If this happens, click **"More info"** and then **"Run anyway"**.
+
+### Option 2: Manual Setup (Git & Python)
+If you prefer to run the application directly from the source code, open Command Prompt or PowerShell and execute these steps:
 ```powershell
 # 1. Clone the repository
 git clone [https://github.com/Anmol-06/Devaster---Device-Master.git](https://github.com/Anmol-06/Devaster---Device-Master.git)
@@ -33,4 +41,4 @@ pip install -r requirements.txt
 python app.py
 ```
 
-> **Tip for Windows Users:** If you have [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) installed, you can simply open your WSL terminal and use the single-line Linux/macOS installation command above!
+> **Tip for Windows Users:** If you have [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) installed, you can simply open your WSL terminal and use the single-line Linux/macOS installation command instead!
